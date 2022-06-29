@@ -177,7 +177,7 @@ public class TCPClient implements ISocket<Socket> {
                 mOutputStream.write(data);
                 mOutputStream.flush();
                 if(LogUtils.isShowLog()) {
-                    LogUtils.d("write:" + new String(data));
+                    //LogUtils.d("write:" + new String(data));
                 }
             } catch (Exception e) {
                 LogUtils.w(e);

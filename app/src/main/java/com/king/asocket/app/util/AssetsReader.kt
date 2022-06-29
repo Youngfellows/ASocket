@@ -32,7 +32,7 @@ object AssetsReader {
         try {
             val assetManager: AssetManager = context.assets //获取assets资源管理器
             val inputStream: InputStream = assetManager.open(fileName)//获取文件流
-            val buffer: ByteArray = ByteArray(1024)//缓冲区
+            val buffer: ByteArray = ByteArray(250)//缓冲区
             var len = 0//读取到大小
             while (inputStream.read(buffer).also { len = it } != -1) {
                 Log.d(TAG, "readAssets: ")
