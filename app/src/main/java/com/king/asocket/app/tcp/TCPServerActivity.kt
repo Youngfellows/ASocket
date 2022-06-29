@@ -38,7 +38,7 @@ class TCPServerActivity : AppCompatActivity() {
 
 
     override fun onDestroy() {
-        aSocket?.close()
+//        aSocket?.close()
         super.onDestroy()
     }
 
