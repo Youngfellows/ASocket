@@ -125,7 +125,9 @@ class TCPClientActivity : AppCompatActivity() {
         Log.d(TAG, "readAudio2Send:: ....")
         Thread(Runnable {
             Log.d(TAG, "readAudio2Send:: start ....")
-            AssetsReader.readAssets("src.pcm", this) { data ->
+            val textFileName: String = "hero.text" //文本文件
+            val audioFileName: String = "src.pcm" //音频文件
+            AssetsReader.readAssets(textFileName, this) { data ->
                 Log.d(TAG, "readAudio2Send:: $data")
                 aSocket?.let {
                     it.write(data)
