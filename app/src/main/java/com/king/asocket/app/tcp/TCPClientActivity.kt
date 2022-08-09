@@ -12,8 +12,10 @@ import com.king.asocket.ISocket
 import com.king.asocket.app.R
 import com.king.asocket.app.databinding.ActivityTcpClientBinding
 import com.king.asocket.app.util.AssetsReader
+import com.king.asocket.app.util.CachePathUtils
 import com.king.asocket.tcp.TCPClient
 import com.king.asocket.util.LogUtils
+import java.io.File
 import java.lang.Exception
 
 /**
@@ -29,7 +31,9 @@ class TCPClientActivity : AppCompatActivity() {
         ActivityTcpClientBinding.inflate(layoutInflater)
     }
 
-    var mHost = "192.168.2.36"
+    var mHost = "192.168.168.132"
+//    var mHost = "127.0.0.1"
+//    var mHost = "192.168.43.89"
 
     var mPort = 2014
 
@@ -118,6 +122,7 @@ class TCPClientActivity : AppCompatActivity() {
             R.id.btnSend -> clickSend()
             R.id.btnClear -> clickClear()
             R.id.btnBinary -> readAudio2Send()
+            R.id.btnCopyBinary -> copyToSdcard()
         }
     }
 
@@ -128,13 +133,39 @@ class TCPClientActivity : AppCompatActivity() {
             val textFileName: String = "hero.text" //文本文件
             val audioFileName: String = "src.pcm" //音频文件
             AssetsReader.readAssets(textFileName, this) { data ->
-                Log.d(TAG, "readAudio2Send:: $data")
+                //Log.d(TAG, "readAudio2Send:: $data")
                 aSocket?.let {
                     it.write(data)
-                    Log.d(TAG, "readAudio2Send:: send pcm: $data")
+                    //Log.d(TAG, "readAudio2Send:: send pcm: $data")
                 }
             }
         }).start()
 
+    }
+
+    private fun copyToSdcard() {
+        Log.d(TAG, "copyToSdcard:: ...")
+        val externCacheFile: File? = CachePathUtils.getExternalDirectory(this, "evd")
+        val cacheFile: File? = CachePathUtils.getCacheDirectory(this, "evd")
+        val destFile: File? = File(cacheFile, "hero.text")
+        Log.i(
+            TAG,
+            "exits:${externCacheFile?.exists()},externCacheDir:${externCacheFile?.absolutePath}"
+        )
+        Log.i(TAG, "cacheDir=${cacheFile?.absolutePath}")
+        Log.i(
+            TAG, "exists:${destFile?.exists()},sirenEcdFile:${destFile?.absolutePath}"
+        )
+        val textFileName: String = "hero.text" //文本文件
+        destFile?.absolutePath?.let {
+            AssetsReader.copyAssets(this, textFileName, it) {
+                onSuccessFun {
+                    Log.d(TAG, "copyToSdcard:: copy file success, ${it.absolutePath}")
+                }
+                onFailedFun { errorCode, msg ->
+                    Log.d(TAG, "copyToSdcard:: errorCode:$errorCode,$msg")
+                }
+            }
+        }
     }
 }

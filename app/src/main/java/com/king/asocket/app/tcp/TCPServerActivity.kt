@@ -2,6 +2,7 @@ package com.king.asocket.app.tcp
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,10 @@ import java.lang.Exception
 
 class TCPServerActivity : AppCompatActivity() {
 
+    companion object {
+        private val TAG: String = TCPServerActivity::class.java.simpleName
+    }
+
     val binding by lazy {
         ActivityTcpServerBinding.inflate(layoutInflater)
     }
@@ -31,7 +36,9 @@ class TCPServerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         title = "TCP Server"
-        binding.tvHost.text = NetworkUtils.getLocalAddress()
+        val localAddress = NetworkUtils.getLocalAddress()
+        Log.d(TAG, "onCreate:: IP:$localAddress")
+        binding.tvHost.text = localAddress
         binding.etPort.setText(mPort.toString())
 
     }

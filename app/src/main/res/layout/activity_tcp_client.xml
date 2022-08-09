@@ -93,12 +93,23 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPort"/>
+
+    <Button
+        android:id="@+id/btnCopyBinary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="拷贝"
+        app:layout_constraintTop_toBottomOf="@+id/etContent"
+        style="@style/OnClick"/>
+
     <Button
         android:id="@+id/btnClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btnCopyBinary"
         android:text="清除数据"
         app:layout_constraintTop_toBottomOf="@+id/etContent"
         style="@style/OnClick"/>
@@ -113,6 +124,7 @@
         android:text="读取音频"
         app:layout_constraintTop_toBottomOf="@+id/etContent"
         style="@style/OnClick"/>
+
 
     <Button
         android:id="@+id/btnSend"
